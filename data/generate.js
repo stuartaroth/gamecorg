@@ -21,7 +21,7 @@ fs.writeFile(jsonFile, stringJson, function (err) {
 function getStringJson(xlsxFile) {
     let workbook = XLSX.readFile(xlsxFile);
 
-    let datum = [];
+    let dataList = [];
 
     for (let sheetsKey in workbook.Sheets) {
 
@@ -35,9 +35,14 @@ function getStringJson(xlsxFile) {
             }
         }
 
-        let data = {name: sheetsKey, values: distinctValues};
-        datum.push(data);
+        let distinctValuesList = [];
+        for (var k in distinctValues) {
+            distinctValuesList.push(k);
+        }
+
+        let data = {name: sheetsKey, values: distinctValuesList};
+        dataList.push(data);
     }
 
-    return JSON.stringify(datum);
+    return JSON.stringify(dataList);
 }
