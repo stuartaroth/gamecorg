@@ -3,7 +3,7 @@ const XLSX = require('xlsx');
 
 
 let xlsxFile = 'data/gamecorg.xlsx';
-let jsonFile = 'data/gamecorg.json';
+let jsonFile = 'src/gamecorg.json';
 
 
 let stringJson = getStringJson(xlsxFile);

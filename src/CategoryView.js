@@ -48,6 +48,12 @@ export default function CategoryView() {
                             gameOver: true
                         };
 
+                        if (newState.gameOver) {
+                            var entriesToRemove = previousState.guessResults.map((i) => i.key);
+                            var entriesToUpdate = _.reject(categoryData.values, (i) => _.contains(entriesToRemove, i));
+                            DataService.setSpecificData(categoryData.name, entriesToUpdate);
+                        }
+
                         return newState;
                     });
 
@@ -58,7 +64,7 @@ export default function CategoryView() {
             });
         }, 1000);
         return () => clearInterval(interval);
-    }, []);
+    });
 
     function correct() {
         correctOrIncorrect(true);
@@ -70,7 +76,6 @@ export default function CategoryView() {
 
     function correctOrIncorrect(correctBoolean) {
         setMyState(function (previousState) {
-
             let newGuess = _.sample(previousState.guesses);
             let newGuesses = _.reject(previousState.guesses, (i) => i === newGuess);
             let newGuessResults = previousState.guessResults;
@@ -80,8 +85,12 @@ export default function CategoryView() {
                 guesses: newGuesses,
                 currentGuess: newGuess,
                 guessResults: newGuessResults,
-                gameOver: newGuesses.length === 0
+                gameOver: newGuesses.length === 0 && newGuess == null
             };
+
+            if (newState.gameOver) {
+                DataService.resetSpecificData(categoryData.name);
+            }
 
             return newState;
         });
