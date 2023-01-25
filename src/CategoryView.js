@@ -8,12 +8,12 @@ import DataService from './DataService';
 
 function GuessResultsComponent(props) {
     let results = props.results;
-    let resultItems = results.map((i) => <div>{i.key} {i.value ? "✅" : "❌"}</div>);
+    let resultItems = results.map((i) => <div key={i.key}>{i.key} {i.value ? "✅" : "❌"}</div>);
     let correctCount = results.filter((i) => i.value).length;
     return (
         <div>
-            <div>{correctCount} Correct!</div>
-            <div key='resultContainer'>{resultItems}</div>
+            <div key="correctCount">{correctCount} Correct!</div>
+            <div key="resultContainer">{resultItems}</div>
         </div>
     );
 }

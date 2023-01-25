@@ -11,12 +11,12 @@ function resetData() {
 
 export default function HomeView() {
     let categories = DataService.getData();
-    let categoryItems = categories.map((category) => <div><Link to={"/" + DataService.urlize(category.name)} key={category.name}>{category.name}</Link></div>);
+    let categoryItems = categories.map((category) => <div key={category.name}><Link to={"/" + DataService.urlize(category.name)} key={category.name}>{category.name}</Link></div>);
     return (
         <div>
-            <div key='categoryContainer'>{categoryItems}</div>
-            <div>.</div>
-            <button key='resetContainer' onClick={resetData}>Reset Data</button>
+            <div key="categoryContainer">{categoryItems}</div>
+            <div key="dot">.</div>
+            <button key="resetContainer" onClick={resetData}>Reset Data</button>
         </div>
     );
 }

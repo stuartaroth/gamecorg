@@ -10,7 +10,15 @@ class DataService {
             data = localStorage.getItem("data");
         }
 
-        return JSON.parse(data);
+        var parsedData = JSON.parse(data);
+
+        if (parsedData.length < this.rawData.length) {
+            this.setData(this.rawData);
+            data = localStorage.getItem("data");
+            parsedData = JSON.parse(data);
+        }
+
+        return parsedData;
     }
 
     static resetData() {
